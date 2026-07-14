@@ -14,11 +14,13 @@ class GameBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconSize = MediaQuery.of(context).size.shortestSide * 0.05;
+
     return InkWell(
       onTap: onTap,
       child: Icon(
         icon ?? Icons.settings,
-        size: 30.0,
+        size: iconSize,
         color: iconColor ?? Colors.black,
       ),
     );

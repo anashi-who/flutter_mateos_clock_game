@@ -38,9 +38,9 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   String clockImage() {
     if (state.isClockImageNumber!) {
-      return 'assets/images/clock_numbers_turtle.png';
+      return 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/clock_numbers_mateo.png';
     } else {
-      return 'assets/images/clock_turtle.png';
+      return 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/clock_mateo.png';
     }
   }
 

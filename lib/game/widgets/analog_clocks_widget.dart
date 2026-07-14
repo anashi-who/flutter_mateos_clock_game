@@ -10,22 +10,36 @@ class AnalogClocksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: BlocBuilder<GameCubit, GameState>(
-        buildWhen: (previous, current) {
-          return previous.randomNumMap != current.randomNumMap;
-        },
-        builder: (context, state) {
-          return ColoredBox(
-            color: Colors.white,
-            child: Row(
-              children: _analogClocksWidget(
-                state.randomNumMap,
+    return BlocBuilder<GameCubit, GameState>(
+      buildWhen: (previous, current) {
+        return previous.randomNumMap != current.randomNumMap;
+      },
+      builder: (context, state) {
+        final analogClocks = _analogClocksWidget(state.randomNumMap);
+
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final crossAxisCount = constraints.maxWidth < 600 ? 2 : 4;
+
+            return ColoredBox(
+              color: Colors.white,
+              child: GridView.builder(
+                padding: const EdgeInsets.all(8),
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                itemCount: analogClocks.length,
+                itemBuilder: (context, index) {
+                  return analogClocks[index];
+                },
               ),
-            ),
-          );
-        },
-      ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -55,7 +69,8 @@ class _AnalogClocksWidgetBuild extends StatelessWidget {
     final gameCubit = context.read<GameCubit>();
     final l10n = context.l10n;
 
-    return Flexible(
+    return AspectRatio(
+      aspectRatio: 1,
       child: Stack(
         children: [
           AnalogClockBuild(
@@ -63,36 +78,37 @@ class _AnalogClocksWidgetBuild extends StatelessWidget {
             minuteHand: minuteHand,
           ),
           Center(
-            child: SizedBox(
-              height: 110,
-              width: 110,
-              child: InkWell(
-                customBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.0),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Padding(
+                padding: EdgeInsets.all(MediaQuery.of(context).size.shortestSide * 0.08),
+                child: InkWell(
+                  customBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100.0),
+                  ),
+                  onTap: () {
+                    if (answerTrue(gameCubit)) {
+                      answerTrueReturn(gameCubit, l10n, context);
+                    } else {
+                      gameCubit.answerFalse();
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return SimpleDialog(
+                            contentPadding: const EdgeInsets.all(10),
+                            children: <Widget>[
+                              if (healthZero(gameCubit))
+                                answerFalseAndHealthZero(gameCubit, l10n, context)
+                              else
+                                answerFalse(l10n, context),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
-                onTap: () {
-                  if (answerTrue(gameCubit)) {
-                    answerTrueReturn(gameCubit, l10n, context);
-                  } else {
-                    // -If the selected hour is wrong, it will work.
-                    gameCubit.answerFalse();
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          contentPadding: const EdgeInsets.all(10),
-                          children: <Widget>[
-                            if (healthZero(gameCubit))
-                              answerFalseAndHealthZero(gameCubit, l10n, context)
-                            else
-                              answerFalse(l10n, context),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                },
               ),
             ),
           ),

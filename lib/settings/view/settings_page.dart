@@ -75,14 +75,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       settingsCubit.chooseImage(true);
                     },
                     color: isClockImageNumber ? Colors.green : Colors.grey,
-                    image: 'assets/images/clock_numbers_turtle.png',
+                    image: 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/clock_numbers_mateo.png',
                   ),
                   chooseImage(
                     onTap: () {
                       settingsCubit.chooseImage(false);
                     },
                     color: isClockImageNumber ? Colors.grey : Colors.green,
-                    image: 'assets/images/clock_turtle.png',
+                    image: 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/clock_mateo.png',
                   ),
                 ],
               ),
@@ -161,9 +161,15 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         height: 160,
         width: 160,
-        child: Image(
-          image: AssetImage(image),
-        ),
+        child: image.startsWith('http')
+            ? Image.network(
+                image,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image, size: 48);
+                },
+              )
+            : Image.asset(image),
       ),
     );
   }

@@ -33,8 +33,8 @@ class AnalogClockBuild extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Center(
-          child: Image(
-            image: AssetImage(settingsCubit.clockImage()),
+          child: Image.network(
+            settingsCubit.clockImage(),
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -48,7 +48,7 @@ class AnalogClockBuild extends StatelessWidget {
                 xOffset: 0,
                 yOffset: -30,
                 angleRadians: minuteHand! * radiansPerTick,
-                imagePath: 'assets/images/hand_min.png',
+                imagePath: 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/hand_min.png',
               ),
               // Hour's Hand.
               _customHand(
@@ -56,7 +56,7 @@ class AnalogClockBuild extends StatelessWidget {
                 yOffset: -22,
                 angleRadians: hourHand! * radiansPerHour +
                     (minuteHand! / 60) * radiansPerHour,
-                imagePath: 'assets/images/hand_hr.png',
+                imagePath: 'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/hand_hr.png',
               ),
               // Center Pin.
               _stud(),
@@ -90,9 +90,7 @@ class AnalogClockBuild extends StatelessWidget {
               ],
               borderRadius: BorderRadius.circular(7.5),
             ),
-            child: Image(
-              image: AssetImage(imagePath),
-            ),
+            child: Image.network(imagePath),
           ),
         ),
       ),
@@ -112,8 +110,8 @@ class AnalogClockBuild extends StatelessWidget {
         ],
         borderRadius: BorderRadius.circular(7.5),
       ),
-      child: const Image(
-        image: AssetImage('assets/images/stud.png'),
+      child: Image.network(
+        'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/stud.png',
       ),
     );
   }

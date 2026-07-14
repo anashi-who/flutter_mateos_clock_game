@@ -44,15 +44,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Positioned.fill(
-                    child: Image.asset(
-                      'assets/images/home_page_grass.png',
+                    child: Image.network(
+                      'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/digital_hour_animals.png',
                       fit: BoxFit.fill,
                       alignment: Alignment.bottomCenter,
                     ),
                   ),
                   const Center(
                     child: Image(
-                      image: AssetImage('assets/images/home_page_turtle.png'),
+                      image: NetworkImage('https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/home_page_mateo.png'),
                       fit: BoxFit.fill,
                     ),
                   ),

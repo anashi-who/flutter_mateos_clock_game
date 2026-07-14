@@ -13,12 +13,15 @@ class ScoreWidget extends StatelessWidget {
         return previous.score != current.score;
       },
       builder: (context, state) {
-        return Row(
+        final iconSize = MediaQuery.of(context).size.shortestSide * 0.05;
+
+        return Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Icon(
               Icons.star_sharp,
               color: Colors.yellow[900],
-              size: 30.0,
+              size: iconSize,
             ),
             Text(
               state.score.toString(),

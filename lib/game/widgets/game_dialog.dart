@@ -17,6 +17,8 @@ class GameDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dialogSize = MediaQuery.of(context).size.shortestSide * 0.24;
+
     return PopScope(
       canPop: false,
       child: Column(
@@ -35,19 +37,23 @@ class GameDialog extends StatelessWidget {
           ),
           Lottie.asset(
             'assets/animations/$animation',
-            height: 190,
-            width: 190,
+            height: dialogSize,
+            width: dialogSize,
           ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: Text(
-              buttonText,
-              style: Theme.of(context).textTheme.labelLarge,
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  buttonText,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            height: 2,
-          ),
+          const SizedBox(height: 2),
         ],
       ),
     );

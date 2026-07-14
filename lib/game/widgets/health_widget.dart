@@ -34,7 +34,9 @@ class HealthWidget extends StatelessWidget {
         return previous.health != current.health;
       },
       builder: (context, state) {
-        return Row(
+        return Wrap(
+          spacing: 4,
+          runSpacing: 4,
           children: _healthWidget(state.health),
         );
       },

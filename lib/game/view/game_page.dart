@@ -39,8 +39,8 @@ class GameView extends StatelessWidget {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.asset(
-                          'assets/images/digital_hour_animals.png',
+                        child: Image.network(
+                          'https://raw.githubusercontent.com/anashi-who/flutter_mateos_clock_game/main/assets/images/digital_hour_animals.png',
                           fit: BoxFit.cover,
                         ),
                       ),
